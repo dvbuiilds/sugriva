@@ -1,9 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link,
      useNavigate
     } from 'react-router-dom'
 
 const Dashboard = () => {
+    const user = useSelector((state)=>{ return state.auth; });
+
     const navigate = useNavigate();
     const logoutFn = async ()=>{
         // calling the api as well.
@@ -14,7 +17,7 @@ const Dashboard = () => {
                 mode: "cors",
                 headers: { 
                     'Content-Type': 'application/json',
-                    'authToken': localStorage.getItem('authToken')
+                    'authToken': user.authToken
                 }
             }
         );
@@ -40,7 +43,7 @@ const Dashboard = () => {
             <div className='container-fluid'>
                 <div className='row'>
                     <div className='col-lg-2' style={{backgroundColor: "red", height: "10px"}}>
-
+                        {user.userName}
                     </div>
                     <div className='col-lg-10' ></div>
                 </div>

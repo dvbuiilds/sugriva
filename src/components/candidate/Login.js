@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
+import { login } from '../../redux';
 // const localStorage = require("localStorage");
 
 const Login = () => {
@@ -7,6 +9,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // onChange function
 
@@ -27,11 +30,19 @@ const Login = () => {
         console.log(candidateResponse);
         if(candidateResponse.candidateData){
             const candidate = candidateResponse.candidateData;
-            localStorage.setItem('authToken', candidate.authToken);
-            localStorage.setItem('candidateId', candidate._id);
-            localStorage.setItem('userName', candidate.userName);
-            console.log(candidate);
-            navigate('/candidate-dashboard', {state: {candidate}});
+            const userPayload = {
+                loggedIn: true,
+                role: 'candidate',
+                firstName: candidate.firstName,
+                lastName: candidate.lastName,
+                userName: candidate.userName,
+                email: candidate.email,
+                id: candidate._id,
+                authToken: candidate.authToken
+            };
+            dispatch(login(userPayload));
+            localStorage.setItem('userPayload', JSON.stringify(userPayload));
+            navigate('/candidate-dashboard');
         } else{
             alert("Invalid Credentials.");
         }

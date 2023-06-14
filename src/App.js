@@ -1,11 +1,13 @@
+import { Provider } from "react-redux";
 import AppRouter from "./components/globalUI/AppRouter";
-
+import store from "./redux/store";
 
 function App() {
-
   return (
     <>
-      <AppRouter/>
+      <Provider store={store}>
+        <AppRouter/>
+      </Provider>
     </>
   );
 }
