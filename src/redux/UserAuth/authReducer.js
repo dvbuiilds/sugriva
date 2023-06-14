@@ -1,6 +1,6 @@
 import { LOGIN, LOGOUT } from "./authTypes";
 
-const initialState = {
+let initialState = {
     loggedIn: false,
     role: '',
     firstName: '',
@@ -18,7 +18,7 @@ const authReducer = (state=initialState, action)=> {
     switch(action.type){
         case LOGIN:
             return {
-                ...state,
+                // ...state,
                 loggedIn: true,
                 role: action.payload.role,
                 firstName: action.payload.firstName,
@@ -31,7 +31,7 @@ const authReducer = (state=initialState, action)=> {
         
         case LOGOUT:
             return {
-                ...state,
+                // ...state,
                 loggedIn: false,
                 role: '',
                 firstName: '',

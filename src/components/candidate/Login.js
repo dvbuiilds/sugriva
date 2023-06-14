@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { 
+    // useSelector, 
+    useDispatch } from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 import { login } from '../../redux';
-// const localStorage = require("localStorage");
 
 const Login = () => {
     // states   
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
+    // hooks
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    
+    // let user = useSelector( (state)=> {return {user: state.auth}} );
 
-    // onChange function
-
-    // eslint-disable-next-line
     const onSubmitFn = async (event) => {
         event.preventDefault();
         const responseCall = await fetch(
@@ -27,7 +29,6 @@ const Login = () => {
         );
 
         const candidateResponse = await responseCall.json();
-        console.log(candidateResponse);
         if(candidateResponse.candidateData){
             const candidate = candidateResponse.candidateData;
             const userPayload = {
