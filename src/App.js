@@ -1,13 +1,12 @@
-import { Provider } from "react-redux";
 import AppRouter from "./components/globalUI/AppRouter";
-import store from "./redux/store";
+import { UserAuthState } from "./components/context/UserAuthContext";
 
 function App() {
   return (
     <>
-      <Provider store={store}>
+      <UserAuthState>
         <AppRouter/>
-      </Provider>
+      </UserAuthState>
     </>
   );
 }

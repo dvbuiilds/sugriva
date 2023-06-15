@@ -1,20 +1,14 @@
-import React, { useState } from 'react'
-import { 
-    // useSelector, 
-    useDispatch } from 'react-redux';
+import React, { useContext, useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
-import { login } from '../../redux';
+import { UserAuthContext } from '../context/UserAuthContext';
 
 const Login = () => {
     // states   
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+    const {setUser} = useContext(UserAuthContext);
     // hooks
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    
-    // let user = useSelector( (state)=> {return {user: state.auth}} );
 
     const onSubmitFn = async (event) => {
         event.preventDefault();
@@ -41,13 +35,14 @@ const Login = () => {
                 id: candidate._id,
                 authToken: candidate.authToken
             };
-            dispatch(login(userPayload));
+            setUser(userPayload);
             localStorage.setItem('userPayload', JSON.stringify(userPayload));
             navigate('/candidate-dashboard');
         } else{
             alert("Invalid Credentials.");
         }
     };
+
     return (
     <div className="container row mx-auto">
         <div className='row text-center'>
@@ -68,7 +63,7 @@ const Login = () => {
             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
             <input type="password" name="password" value={password} onChange={event => setPassword(event.target.value)} className="form-control" id="exampleInputPassword1"/>
             </div>
-            <button type="submit" value="Submit" className="btn btn-primary">Submit</button>
+            <button type="submit" value="Submit" className="btn btn-primary">Login</button>
             <Link className="px-5 " to="/signup">New user? Sign Up</Link>
         </form>
         </div>

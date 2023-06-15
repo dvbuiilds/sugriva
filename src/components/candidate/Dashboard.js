@@ -1,14 +1,10 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Link,
-     useNavigate
-    } from 'react-router-dom'
-import { logout } from '../../redux';
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserAuthContext } from '../context/UserAuthContext';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    let user = useSelector((state)=>{ return state.auth; });
-    const dispatch = useDispatch();
+    const {user, setUser} = useContext(UserAuthContext);
     
     const logoutFn = async ()=>{
         // calling the api as well.
@@ -26,7 +22,7 @@ const Dashboard = () => {
 
         const logoutRes = await logoutCall.json();
         console.log('Res received', logoutRes);
-        dispatch(logout());
+        setUser({});
         if(!logoutRes.success){
             alert('Some internal error occured. Try clearing the site data.');
         }
@@ -40,7 +36,9 @@ const Dashboard = () => {
             <nav className="navbar navbar-light bg-primary">
                 <div className=' px-2'>
                     <Link className='navbar-brand text-white' to="/candidate-dashboard">Sugriva Dashboard</Link>
-                    <Link className='text-white' onClick={async ()=>{await logoutFn();}}>Logout</Link>
+                    <Link className='text-white' onClick={async ()=>{
+                        await logoutFn(); 
+                    }}>Logout</Link>
                 </div>
             </nav>  
             <div className='container-fluid'>

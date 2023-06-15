@@ -11,9 +11,6 @@ const SingUp = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
-    // onChange function
-
-
     // Checking if both passwords match or not.
     const checkingPasswords = (pass1, pass2) =>{
         if(pass1.length < 6 || pass2.length < 6 || pass1 !== pass2){
@@ -85,7 +82,7 @@ const SingUp = () => {
                 <label htmlFor="exampleConfirmPassword1" className="form-label">Confirm Password</label>
                 <input required type="password" name="confirmPassword" value={confirmPassword} onChange={event => setConfirmPassword(event.target.value)} className="form-control" id="exampleConfirmPassword1"/>
                 </div>
-                <button type="submit" value="Submit" className="btn btn-primary">Submit</button>
+                <button type="submit" value="Submit" className="btn btn-primary">Signup</button>
                 <Link className="px-3 " to="/login">Already signed up? Log in</Link>
             </form>
         </div>

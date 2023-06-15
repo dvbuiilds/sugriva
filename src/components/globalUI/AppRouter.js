@@ -4,6 +4,8 @@ import Home from "./Home";
 import SingUp from "../candidate/SingUp";
 import Dashboard from "../candidate/Dashboard";
 import Login from "../candidate/Login";
+import CandidateProtected from "../protectedRoutes/CandidateProtected";
+import RegisterProtected from "../protectedRoutes/RegisterProtected";
 
 const AppRouter = () => {
   return (
@@ -12,9 +14,9 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/signup" element={<SingUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/candidate-dashboard" element={<Dashboard />} />
+          <Route path="/signup" element={<RegisterProtected><SingUp/></RegisterProtected>} />
+          <Route path="/login" element={<RegisterProtected><Login/></RegisterProtected>} />
+          <Route path="/candidate-dashboard" element={<CandidateProtected ><Dashboard /></CandidateProtected>} />
         </Routes>
       </BrowserRouter>
     </>
