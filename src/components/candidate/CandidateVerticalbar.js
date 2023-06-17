@@ -46,34 +46,27 @@ const CandidateVerticalbar = () => {
             <div style={{height: "15px"}}></div>
 
             <ul className="nav nav-pills flex-column ">
-            <li>
-                <Link to="/resume" className="nav-link link-dark fs-5"><AiOutlineFile/> &nbsp;My Resume
-                </Link>
-            </li>
-            <li>
-                <Link to="/module" className="nav-link link-dark fs-5"><BsBook/> &nbsp;Module
-                </Link>
-            </li>
-            <li>
-                <Link to="/assessment" className="nav-link link-dark fs-5"><MdOutlineAssessment/> &nbsp;Assessment
-                </Link>
-            </li>
-            <li>
-                <Link to="/interview" className="nav-link link-dark fs-5"><MdMeetingRoom/> &nbsp;Interview
-                </Link>
-            </li>
-            <li>
-                <Link to="/profile" className="nav-link link-dark fs-5"><AiOutlineProfile/> &nbsp;Profile
-                </Link>
-            </li>
-            <li>
-                <Link to="/settings" className="nav-link link-dark fs-5"><AiOutlineSetting/> &nbsp;Settings
-                </Link>
-            </li>
-            <li>
-                <Link className="nav-link link-dark fs-5" onClick={async()=>{ await logoutFn(); }}><FiLogOut/> &nbsp;Logout
-                </Link>
-            </li>
+                <li>
+                    <Link to="/resume" className="nav-link link-dark fs-5"><AiOutlineFile/> &nbsp;My Resume</Link>
+                </li>
+                <li>
+                    <Link to="/module" className="nav-link link-dark fs-5"><BsBook/> &nbsp;Module</Link>
+                </li>
+                <li>
+                    <Link to="/assessment" className="nav-link link-dark fs-5"><MdOutlineAssessment/> &nbsp;Assessment</Link>
+                </li>
+                <li>
+                    <Link to="/interview" className="nav-link link-dark fs-5"><MdMeetingRoom/> &nbsp;Interview</Link>
+                </li>
+                <li>
+                    <Link to="/profile" className="nav-link link-dark fs-5"><AiOutlineProfile/> &nbsp;Profile</Link>
+                </li>
+                <li>
+                    <Link to="/settings" className="nav-link link-dark fs-5"><AiOutlineSetting/> &nbsp;Settings</Link>
+                </li>
+                <li>
+                    <Link className="nav-link link-dark fs-5" onClick={async()=>{ await logoutFn(); }}><FiLogOut/> &nbsp;Logout</Link>
+                </li>
             </ul>
         </div>
     </>
