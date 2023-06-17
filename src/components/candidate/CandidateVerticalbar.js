@@ -1,15 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Img from '../ui/Img'
 import { Link, useNavigate } from 'react-router-dom';
 import {FiLogOut } from 'react-icons/fi';
 import {MdOutlineAssessment, MdMeetingRoom} from 'react-icons/md';
 import {BsBook} from "react-icons/bs";
 import {AiOutlineFile, AiOutlineProfile, AiOutlineSetting} from 'react-icons/ai';
-import { UserAuthContext } from '../context/UserAuthContext';
+import { useUser } from '../../hooks/useUser';
 
 const CandidateVerticalbar = () => {
-    let user = JSON.parse(localStorage.getItem('userPayload'));
-    const {setUser} = useContext(UserAuthContext);
+    const {user, setUser} = useUser();
     const navigate = useNavigate();
 
     const logoutFn = async ()=>{

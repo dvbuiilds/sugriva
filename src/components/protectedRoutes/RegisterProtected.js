@@ -1,7 +1,8 @@
 import { Navigate } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
 
 const RegisterProtected = ({ children }) => {
-    let user = (JSON.parse(localStorage.getItem('userPayload')));
+    const {user} = useUser();
     if(user && user.loggedIn){
         return <Navigate to='/candidate-dashboard' replace />
     }

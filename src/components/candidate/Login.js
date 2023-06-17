@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import { UserAuthContext } from '../context/UserAuthContext';
+import asyncLocalStorage from '../../customObjects/asyncLocalStorage';
 
 const Login = () => {
     // states   
@@ -36,7 +37,7 @@ const Login = () => {
                 authToken: candidate.authToken
             };
             setUser(userPayload);
-            localStorage.setItem('userPayload', JSON.stringify(userPayload));
+            await asyncLocalStorage.setItem('userPayload', JSON.stringify(userPayload));
             navigate('/candidate-dashboard');
         } else{
             alert("Invalid Credentials.");
