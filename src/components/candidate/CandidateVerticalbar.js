@@ -35,7 +35,6 @@ const CandidateVerticalbar = () => {
         localStorage.clear();
         navigate('/login');
     };
-    const style = { color: "white", fontSize: "1.5em", stroke: "white" };
   return (
     <>
         <div 
