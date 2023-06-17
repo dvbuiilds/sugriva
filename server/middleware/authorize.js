@@ -8,7 +8,6 @@ const verifyCandidateToken = (req, res, next) => {
 
     if(!token) {
         console.log('Invalid token. Kindly login again.');
-        // return res.redirect('/login');
         return res.status(403).send("A token is required for authentication.");
     }
 
@@ -18,16 +17,8 @@ const verifyCandidateToken = (req, res, next) => {
             console.log('Invalid session. please relogin.');
             localStorage.clear();
             res.clearCookie('authToken');
-            // res.cookie("authToken", "", { maxAge: "1" });
             res.redirect('/login');
         }
-
-        // console.log(decoded.user.id, localStorage.getItem('candidateId'));
-        // if(localStorage.getItem('candidateId') !== decoded.user.id){
-        //     console.log('Session Expired. please relogin.');
-        //     localStorage.clear();
-        //     return res.redirect('/login');
-        // }
     } catch( err) {
         return res.status(401).json({msg: "Invalid token!", err: err});
     }

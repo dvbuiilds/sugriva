@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require("express");
 const Candidate = require("../model/Candidate");
 const router = express.Router();
-// const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const verifyCandidateToken = require("../middleware/authorize");
@@ -61,9 +60,7 @@ router.post(
 
             res.cookie("authToken", authToken, {
                 httpOnly: true,
-                // maxAge: maxAge * 1000, 
             });
-            // console.log('authToken saved in localStorage');
             
             const candidateData = {
                 firstName: candidateExists.firstName,
@@ -93,7 +90,6 @@ router.get(
     async (req, res)=>{
         const userId = localStorage.getItem('userId');
         const candidateId = localStorage.getItem('candidateId');
-        // const 
     }
 )
 
@@ -105,7 +101,6 @@ router.get(
         console.log('Entering API');
         localStorage.clear();
         res.clearCookie("authToken");
-        // res.end();
         console.log('Exiting API');
         return res.status(200).json({success: true});
     }
