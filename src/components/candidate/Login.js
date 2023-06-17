@@ -34,7 +34,8 @@ const Login = () => {
                 userName: candidate.userName,
                 email: candidate.email,
                 id: candidate._id,
-                authToken: candidate.authToken
+                authToken: candidate.authToken,
+                profile: candidate.profile?true: null
             };
             setUser(userPayload);
             await asyncLocalStorage.setItem('userPayload', JSON.stringify(userPayload));

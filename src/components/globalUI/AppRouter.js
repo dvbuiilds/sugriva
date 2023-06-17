@@ -6,6 +6,7 @@ import Dashboard from "../candidate/Dashboard";
 import Login from "../candidate/Login";
 import CandidateProtected from "../protectedRoutes/CandidateProtected";
 import RegisterProtected from "../protectedRoutes/RegisterProtected";
+import Forms from "../candidate/Form/Forms";
 
 const AppRouter = () => {
   return (
@@ -17,6 +18,7 @@ const AppRouter = () => {
           <Route path="/signup" element={<RegisterProtected><SingUp/></RegisterProtected>} />
           <Route path="/login" element={<RegisterProtected><Login/></RegisterProtected>} />
           <Route path="/candidate-dashboard" element={<CandidateProtected ><Dashboard /></CandidateProtected>} />
+          <Route path="/forms" element={<CandidateProtected ><Forms /></CandidateProtected>} />
         </Routes>
       </BrowserRouter>
     </>

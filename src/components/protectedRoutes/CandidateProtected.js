@@ -1,8 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { useUser } from "../../hooks/useUser";
 
 const CandidateProtected = ({ children }) => {
-    const {user} = useUser();
+    let user = (JSON.parse(localStorage.getItem('userPayload')));
     if(user && user.role !== 'candidate'){
         alert('You are not candidate.');
         return <Navigate to="/login" replace/>;
