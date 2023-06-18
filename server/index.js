@@ -14,5 +14,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/auth', require('./routes/authorization'));
+app.use('/api/candidateform', require('./routes/candidateForm'));
 
 app.listen(port);

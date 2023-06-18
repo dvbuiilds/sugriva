@@ -18,7 +18,7 @@ const AppRouter = () => {
           <Route path="/signup" element={<RegisterProtected><SingUp/></RegisterProtected>} />
           <Route path="/login" element={<RegisterProtected><Login/></RegisterProtected>} />
           <Route path="/candidate-dashboard" element={<CandidateProtected ><Dashboard /></CandidateProtected>} />
-          <Route path="/forms" element={<CandidateProtected ><Forms /></CandidateProtected>} />
+          <Route path="/candidate-form" element={<CandidateProtected ><Forms /></CandidateProtected>} />
         </Routes>
       </BrowserRouter>
     </>

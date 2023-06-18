@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import PersonalForm from './PersonalForm';
 import EducationForm from './EducationForm';
 import EmploymentForm from './EmploymentForm';
+import { UserAuthContext } from '../../context/UserAuthContext';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Forms = () => {
+    const navigate = useNavigate();
+    const {user, setUser} = useContext(UserAuthContext);
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
+        // firstName: '',
+        // lastName: '',
+        // email: '',
         waNumber: '',
         gender: '',
         highestQualification: '',
@@ -49,9 +53,9 @@ const Forms = () => {
             } 
         }
         return false;
-    }
+    };
     const increaseStep = ()=>{
-        if(checkEmptyFields()){
+        if(0 && checkEmptyFields()){
             alert('Please fill all required fields first.');
             return ;
         }
@@ -67,11 +71,45 @@ const Forms = () => {
     const onChangeFn = (event)=>{
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
-    const onSubmitFn = (event)=>{
-        event.preventDefault();
-        event.preventDefault();
-        console.log(formData);
+    const onSubmitFn = async (event)=>{
+        try{
+            event.preventDefault();
+            console.log(formData);
+            // const user = JSON.parse(localStorage.getItem('userPayload'));
+            // make api call.
+            const formSubmitCall = await fetch(
+                'http://localhost:5000/api/candidateform/submit',
+                {
+                    method: "POST",
+                    mode: "cors",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'authToken': user.authToken,
+                        'candidateId': user.id
+                    },
+                    body: JSON.stringify(formData)
+                }
+            );
+
+            const formSubmitResponse = await formSubmitCall.json();
+            if(formSubmitResponse.success){
+                setUser({
+                    ...user,
+                    profile: true
+                });
+            } else{
+                alert('Some error occured while submitting the form. Please try again after some time.');
+            }
+            // navigate('/candidate-dashboard');
+            return <Navigate to='/candidate-dashboard' replace/>
+            // event.stopImmediatePropagation();
+        }
+        catch(error){
+            alert(error.message);
+            console.log(error);
+        }
     };
+
     return (
         <div>
             <div className='container'>
@@ -82,7 +120,7 @@ const Forms = () => {
                             <div className=''>
                                 <h2>Candidate Information Form</h2>
                             </div>
-                            <form name='form' onSubmit={()=>{onSubmitFn();}}>
+                            <form name='form' onSubmit={ onSubmitFn }>
                                 {
                                     step === 1? (
                                         <>

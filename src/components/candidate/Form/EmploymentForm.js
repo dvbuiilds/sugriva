@@ -6,16 +6,16 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         <h6 className='mt-4'>Employment Details</h6>
         <div className="form-group my-2">
           <label >Career Status</label>
-          <select name="careerStatus" defaultValue={"Select Options"} value={formData.careerStatus} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="careerStatus" value={formData.careerStatus} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Fresher</option>
             <option>Experienced</option>
           </select>
         </div>
         <div className="form-group my-2">
           <label >Years of Experience</label>
-          <select name="yearsOfExperience" defaultValue={"Select Options"} value={formData.yearsOfExperience} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="yearsOfExperience" value={formData.yearsOfExperience} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>0</option>
             <option>0.5</option>
             <option>1</option>
@@ -42,8 +42,8 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         </div>
         <div className="form-group my-2">
           <label >Current Employment Status</label>
-          <select name="employmentStatus" defaultValue={"Select Options"} value={formData.employmentStatus} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="employmentStatus" value={formData.employmentStatus} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Employed (Full Time)</option>
             <option>Employed (Part Time)</option>
             <option>Unemployed</option>
@@ -51,32 +51,32 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         </div>
         <div className="form-group my-2">
           <label>Current/Previous Company </label>
-          <input required type="text" name="currentCompany" onChange={onChangeFn} value={formData.currentCompany} className="form-control"/>
+          <input  type="text" name="currentCompany" onChange={onChangeFn} value={formData.currentCompany} className="form-control"/>
         </div>
         <div className="form-group my-2">
           <label>Job Title </label>
-          <input required type="text" name="jobTitle" onChange={onChangeFn} value={formData.jobTitle} className="form-control"/>
+          <input  type="text" name="jobTitle" onChange={onChangeFn} value={formData.jobTitle} className="form-control"/>
         </div>
         <div className="form-group my-2">
           <label>Current City</label>
-          <input required type="text" name="currentCity" onChange={onChangeFn} value={formData.currentCity} className="form-control"/>
+          <input  type="text" name="currentCity" onChange={onChangeFn} value={formData.currentCity} className="form-control"/>
         </div>
         <div className="form-group my-2">
           <label>Working Since</label>
-          <input required type="date" name="workingSince" onChange={onChangeFn} value={formData.workingSince} className="form-control"/>
+          <input  type="date" name="workingSince" onChange={onChangeFn} value={formData.workingSince} className="form-control"/>
         </div>
         <div className="form-group my-2">
           <label>Current CTC (in LPA)</label>
-          <input required type="text" name="currentCTC" onChange={onChangeFn} value={formData.currentCTC} className="form-control"/>
+          <input  type="text" name="currentCTC" onChange={onChangeFn} value={formData.currentCTC} className="form-control"/>
         </div>
         <div className="form-group my-2">
           <label>Current Fixed CTC (in LPA)</label>
-          <input required type="text" name="currentFixedCTC" onChange={onChangeFn} value={formData.currentFixedCTC} className="form-control"/>
+          <input  type="text" name="currentFixedCTC" onChange={onChangeFn} value={formData.currentFixedCTC} className="form-control"/>
         </div>
         <div className="form-group my-2">
           <label >Notice Period </label>
-          <select name="noticePeriod" defaultValue={"Select Options"} value={formData.noticePeriod} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="noticePeriod" value={formData.noticePeriod} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>15 Days or less</option>
             <option>1 month</option>
             <option>2 months</option>
@@ -86,16 +86,16 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         </div>
         <div className="form-group my-2">
           <label>Is Notice Period Negotiable </label>
-          <select name="noticePeriodNegotiable" defaultValue={"Select Options"} value={formData.noticePeriodNegotiable} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="noticePeriodNegotiable" value={formData.noticePeriodNegotiable} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Yes</option>
             <option>No</option>
           </select>
         </div>
         <div className="form-group my-2">
           <label >Industry </label>
-          <select name="industry" defaultValue={"Select Options"} value={formData.industry} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="industry" value={formData.industry} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Transportation</option>
             <option>Telecommunication</option>
             <option>Pharmaceutical</option>
@@ -125,8 +125,8 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         </div>
         <div className="form-group my-2">
           <label >Department </label>
-          <select name="department" defaultValue={"Select Options"} value={formData.department} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="department" value={formData.department} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>BFSI, Investments & Trading</option>
             <option>Customer Success, Service & Operations</option>
             <option>Data Science & Analytics</option>
@@ -156,8 +156,8 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         </div>
         <div className="form-group my-2">
           <label >Work Arrangement </label>
-          <select name="workArrangement" defaultValue={"Select Options"} value={formData.workArrangement} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="workArrangement" value={formData.workArrangement} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>In-office</option>
             <option>Remote</option>
           </select>
@@ -166,44 +166,44 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         <h6 className='mt-4'>Future Employment Details</h6>
         <div className="form-group my-2">
           <label >Preferred Job Type </label>
-          <select name="prefferedJobType" defaultValue={"Select Options"} value={formData.prefferedJobType} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="prefferedJobType" value={formData.prefferedJobType} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Permanent</option>
             <option>Temporary/Contract</option>
           </select>
         </div>
         <div className="form-group my-2">
           <label >Preferred Employment Type</label>
-          <select name="preferredEmploymentType" defaultValue={"Select Options"} value={formData.preferredEmploymentType} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="preferredEmploymentType" value={formData.preferredEmploymentType} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Full Time</option>
             <option>Part Time</option>
           </select>
         </div>
         <div className="form-group my-2">
           <label >Preferred Work Arrangement </label>
-          <select name="preferredWorkArrangement" defaultValue={"Select Options"} value={formData.preferredWorkArrangement} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="preferredWorkArrangement" value={formData.preferredWorkArrangement} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>In-office</option>
             <option>Remote</option>
           </select>
         </div>
         <div className="form-group my-2">
           <label >Are you willing to relocate?</label>
-          <select name="willingToRelocate" defaultValue={"Select Options"} value={formData.willingToRelocate} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="willingToRelocate" value={formData.willingToRelocate} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Yes</option>
             <option>No</option>
           </select>
         </div>
         <div className="form-group my-2">
           <label>Preferred Work Locations</label>
-          <input required type="text" name="preferredWorkLocations" onChange={onChangeFn} value={formData.preferredWorkLocations} className="form-control"/>
+          <input  type="text" name="preferredWorkLocations" onChange={onChangeFn} value={formData.preferredWorkLocations} className="form-control"/>
         </div>
         <div className="form-group my-2">
           <label >Preferred Industry </label>
-          <select name="preferredIndustry" defaultValue={"Select Options"} value={formData.preferredIndustry} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="preferredIndustry" value={formData.preferredIndustry} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>Transportation</option>
             <option>Telecommunication</option>
             <option>Pharmaceutical</option>
@@ -233,8 +233,8 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         </div>
         <div className="form-group my-2">
           <label >Preferred Department </label>
-          <select name="preferredDepartment" defaultValue={"Select Options"} value={formData.preferredDepartment} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted'>Select Options</option>
+          <select name="preferredDepartment" value={formData.preferredDepartment} onChange={onChangeFn} className="form-control" >
+            <option className='text-muted' selected>Select Options</option>
             <option>BFSI, Investments & Trading</option>
             <option>Customer Success, Service & Operations</option>
             <option>Data Science & Analytics</option>
@@ -260,7 +260,7 @@ const EmploymentForm = ({formData, onChangeFn}) => {
         </div>
         <div className="form-group my-2">
           <label>Preferred CTC (in LPA)</label>
-          <input required type="text" name="preferredCTC" onChange={onChangeFn} value={formData.preferredCTC} className="form-control"/>
+          <input  type="text" name="preferredCTC" onChange={onChangeFn} value={formData.preferredCTC} className="form-control"/>
         </div>
     </div>
   )
