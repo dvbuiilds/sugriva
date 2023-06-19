@@ -3,16 +3,13 @@ import PersonalForm from './PersonalForm';
 import EducationForm from './EducationForm';
 import EmploymentForm from './EmploymentForm';
 import { UserAuthContext } from '../../context/UserAuthContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Forms = () => {
     const navigate = useNavigate();
     const {user, setUser} = useContext(UserAuthContext);
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
-        // firstName: '',
-        // lastName: '',
-        // email: '',
         waNumber: '',
         gender: '',
         highestQualification: '',
@@ -55,7 +52,7 @@ const Forms = () => {
         return false;
     };
     const increaseStep = ()=>{
-        if(0 && checkEmptyFields()){
+        if(checkEmptyFields()){
             alert('Please fill all required fields first.');
             return ;
         }
@@ -75,8 +72,6 @@ const Forms = () => {
         try{
             event.preventDefault();
             console.log(formData);
-            // const user = JSON.parse(localStorage.getItem('userPayload'));
-            // make api call.
             const formSubmitCall = await fetch(
                 'http://localhost:5000/api/candidateform/submit',
                 {
@@ -93,16 +88,17 @@ const Forms = () => {
 
             const formSubmitResponse = await formSubmitCall.json();
             if(formSubmitResponse.success){
-                setUser({
+                const newUser = {
                     ...user,
                     profile: true
-                });
+                };
+                setUser(newUser);
+                localStorage.setItem('userPayload', JSON.stringify(user));
+                alert('Form submitted successfully!');
             } else{
                 alert('Some error occured while submitting the form. Please try again after some time.');
             }
-            // navigate('/candidate-dashboard');
-            return <Navigate to='/candidate-dashboard' replace/>
-            // event.stopImmediatePropagation();
+            navigate('/candidate-dashboard');
         }
         catch(error){
             alert(error.message);

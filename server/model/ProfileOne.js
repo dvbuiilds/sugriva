@@ -1,15 +1,7 @@
 const mongoose = require("mongoose");
 
 const profileOneSchema = new mongoose.Schema({
-//   firstName: { type: String, default: null },
-//   lastName: { type: String, default: null },
-//   userName: { type: String, unique: true },
-//   email: { type: String, unique: true },
-//   password: { type: String },
   candidate: {type: mongoose.Schema.Types.ObjectId, ref: 'Candidate'},
-//   firstName: '',
-//   lastName: '',
-//   email: '',
   waNumber: { type: String, default: null },
   gender: { type: String, default: null },
   highestQualification: { type: String, default: null },

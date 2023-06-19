@@ -62,7 +62,7 @@ router.post(
                 );
                 const candidateUpdate = await Candidate.updateOne(
                     {_id: candidate},
-                    {$set: {profile: formRes._id}}
+                    {$set: {profile: formUpdate._id}}
                 );
             }
         } catch(error){
