@@ -1,20 +1,20 @@
 import { Navigate } from "react-router-dom";
 
-const CandidateProtected = ({ children }) => {
+const AdminProtected = ({ children }) => {
     let user = (JSON.parse(localStorage.getItem('userPayload')));
-    if(user && user.role !== 'candidate'){
-        alert('You are not candidate.');
+    if(user && user.role !== 'admin'){
+        alert('You are not admin.');
         if(user.role === 'admin'){
             return <Navigate to='/admin-dashboard' replace />;
         }
         localStorage.clear();
-        return <Navigate to="/login" replace/>;
+        return <Navigate to="/admin" replace/>;
     }
     if(!user || !user.loggedIn){
-        alert('Log in via Candidate Account.');
-        return <Navigate to="/login" replace />;
+        alert('Log in via Admin Account.');
+        return <Navigate to="/admin" replace />;
     }
     return children;
 };
 
-export default CandidateProtected;
+export default AdminProtected;

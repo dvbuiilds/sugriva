@@ -16,4 +16,6 @@ app.use(cookieParser());
 app.use('/api/auth', require('./routes/authorization'));
 app.use('/api/candidateform', require('./routes/candidateForm'));
 
+app.use('/api/admin', require('./routes/adminAuthorization'));
+
 app.listen(port);
