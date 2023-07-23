@@ -1,5 +1,6 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
-const MONGO_URI = "mongodb://localhost:27017/sugriva";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.set('strictQuery', true);
 
