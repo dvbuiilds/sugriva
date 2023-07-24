@@ -1,10 +1,13 @@
 import socketClient from 'socket.io-client';
 import { handleAdmitRequest, handleAttendeeLeft, handleDisconnectedUser, handleNewMeetingRoom, handleNewMessage, handleRequestResponse, handleRoomCheck, resetStateAfterCallEnd } from './webRTCHandler';
-
-const URL = 'http://localhost:8080';
 let socket = null;
 
 export const connectWithWebSocketServer = ()=>{
+    const BACKEND_PORT = process.env.BACK_PORT || 5000;
+    const SERVER_URL = process.env.SERVER_URL || 'http://localhost';
+    const URL = `${SERVER_URL}:${BACKEND_PORT}`;
+
+    console.log('socket io url is: ', URL);
     socket = socketClient(URL);
 
     socket.on('connection', (data)=>{

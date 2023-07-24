@@ -28,13 +28,12 @@ let myPeerId = null;
 let meetingRoomId = null;
 let room = null;
 let connectedUser = {};
-let msgConn = null;
 
 export const connectWithMyPeer = ()=>{
     myPeer = new window.Peer(undefined, {
         path: '/peerjs',
         host: '/',
-        port: '8080'
+        port: '5000'
     });
 
     myPeer.on('open', (id)=>{
@@ -86,7 +85,6 @@ export const joinMeetingRoom = (roomId)=>{
     meetingRoomId = roomId;
     sendMeetingRoomJoinRequest({
         roomId,
-        // localStreamId: store.getState().stream.localStream.id,
         peerId: myPeerId,
         username: store.getState().user.userName,
     });
@@ -94,10 +92,11 @@ export const joinMeetingRoom = (roomId)=>{
 };
 
 export const handleAdmitRequest = (data)=>{
+    console.log('Inside handleAdmitRequest. ', {data});
     connectedUser = {
         socketId: data.attendeeSocketId,
         username: data.attendeeUsername,
-        peerId: data.attendeePeerId
+        peerId: data.attendeePeerId,
     };
     if(store.getState().user.meetingCode.length >0 && store.getState().stream.meetingRole === meetingRoles.HOST){
         store.dispatch(setCallerUsername(data.attendeeUsername));
@@ -141,7 +140,7 @@ export const entryAccepted = ()=>{
 export const makePeerCall = ()=>{
     const localStream = store.getState().stream.localStream;
     const call = myPeer.call(connectedUser.peerId, localStream);
-
+    console.log({myPeer}, {connectedUser}, {call});
     call.on('stream', (incomingStream) => {
         store.dispatch(setRemoteStream(incomingStream));
     });
@@ -186,7 +185,6 @@ export const endMeeting = ()=> {
     store.dispatch(resetStream());
     room = null;
     myPeerId = null;
-    msgConn = null;
     myPeer.destroy();
     connectWithMyPeer();
 };
@@ -196,7 +194,6 @@ export const resetStateAfterCallEnd = ()=>{
     store.dispatch(resetStream());
     room = null;
     myPeerId = null;
-    msgConn = null;
     myPeer.destroy();
     connectWithMyPeer();
     store.dispatch(setMeetingActive(''));
@@ -207,10 +204,6 @@ export const handleAttendeeLeft = ()=>{
     store.dispatch(setCallStatus(call_Statuses.IN_PROGRESS));
     store.dispatch(setCallerUsername(''));
     connectedUser = {};
-    myPeerId = null;
-    msgConn = null;
-    myPeer.destroy();
-    connectWithMyPeer();
 };
 
 export const messageToPeer = (message) => {

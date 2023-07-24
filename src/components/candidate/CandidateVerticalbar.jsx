@@ -2,9 +2,14 @@ import React from 'react'
 import Img from '../ui/Img'
 import { Link, useNavigate } from 'react-router-dom';
 import {FiLogOut } from 'react-icons/fi';
-import {MdOutlineAssessment, MdMeetingRoom} from 'react-icons/md';
-import {BsBook} from "react-icons/bs";
-import {AiOutlineFile, AiOutlineProfile, AiOutlineSetting} from 'react-icons/ai';
+import {
+    // MdOutlineAssessment, 
+    MdMeetingRoom} from 'react-icons/md';
+// import {BsBook} from "react-icons/bs";
+import {AiOutlineFile, 
+    // AiOutlineProfile, 
+    // AiOutlineSetting
+} from 'react-icons/ai';
 import { useUser } from '../../hooks/useUser';
 
 const CandidateVerticalbar = () => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { connectWithMyPeer, createNewMeeting, joinMeetingRoom } from '../../utils//webRTCHandler';
 import { useSelector } from 'react-redux';
+import { connectWithWebSocketServer } from '../../utils/wssConnection';
 
 const Meeting = () => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Meeting = () => {
     const { role } = useSelector( state => state.user );
     const handleCreateMeetingBtn = ()=>{
         // generate meeting code. get the meeting code in response.
-        createNewMeeting();
+        ( async() => createNewMeeting() )();
         // navigate to the meeting code.
         navigate('/wtgri-AXUHSD');
     };
@@ -28,7 +29,8 @@ const Meeting = () => {
     };
 
     useEffect(()=>{
-        connectWithMyPeer();
+        ( async() => connectWithWebSocketServer() )();
+        ( async()=> connectWithMyPeer() )();
     });
 
     return (

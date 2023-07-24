@@ -5,7 +5,7 @@ import { setChatActive } from '../../../redux/chat/actions';
 
 const ButtonChat = () => {
     const dispatch = useDispatch();
-    const { chatActive } = useSelector( state => state.ui );
+    const { chatActive } = useSelector( state => state.chat );
     const style = {
         button: {
             border: 'none',
