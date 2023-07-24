@@ -3,7 +3,6 @@ const localStorage = require("localStorage");
 const config = process.env;
 
 const verifyCandidateToken = (req, res, next) => {
-    console.log('Entering middleware.');
     const token = req.header('authToken');
 
     if(!token) {
@@ -22,7 +21,6 @@ const verifyCandidateToken = (req, res, next) => {
     } catch( err) {
         return res.status(401).json({msg: "Invalid token!", err: err});
     }
-    console.log('Exiting middleware.');
     return next();
 };
 

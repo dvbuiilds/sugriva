@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const {user} = useUser();
-    console.log({user});
     const navigate = useNavigate();
     const onClickFn = ()=>{
         navigate('/candidate-form');

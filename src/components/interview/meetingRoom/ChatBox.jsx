@@ -7,7 +7,7 @@ import ChatMessage from './ChatMessage';
 import ScrollableFeed from 'react-scrollable-feed';
 
 const ChatBox = () => {
-    const { chatActive } = useSelector( state => state.ui );
+    const { chatActive } = useSelector( state => state.chat );
     const { chatHistory } = useSelector( state => state.chat );
     const dispatch = useDispatch();
     const [message, setMessage] = useState('');

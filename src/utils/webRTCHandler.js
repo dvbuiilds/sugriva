@@ -3,7 +3,7 @@ import { setChatHistory } from "../redux/chat/actions";
 import { call_Statuses, resetStream, setCallStatus, setCallerUsername, setLocalStream, setMeetingHostUsername, setMeetingMessage, setMeetingRole, setRemoteStream, setRoomStreams } from "../redux/stream/actions";
 import { setMeetingActive } from "../redux/user/actions";
 import store from "../redux/store";
-import { sendMeetingRoomJoinRequest, registerNewMeeting, sendEntryRequestResponse, sendEndMeeting, sendEndMeetingForAll, sendEndMeetingForAttendee, sendMessage } from "./wssConnection";
+import { sendMeetingRoomJoinRequest, registerNewMeeting, sendEntryRequestResponse, sendEndMeeting, sendEndMeetingForAll, sendEndMeetingForAttendee, sendMessage, sendLeaveRoom } from "./wssConnection";
 
 const defaultConstraints = {
     video: {
@@ -25,16 +25,14 @@ export const getLocalStream = ()=>{
 
 let myPeer = null;
 let myPeerId = null;
-let meetingRoomId = null;
 let room = null;
 let connectedUser = {};
-let msgConn = null;
 
 export const connectWithMyPeer = ()=>{
     myPeer = new window.Peer(undefined, {
         path: '/peerjs',
         host: '/',
-        port: '8080'
+        port: '5000'
     });
 
     myPeer.on('open', (id)=>{
@@ -83,10 +81,8 @@ export const handleNewMeetingRoom = (data)=>{
 };
 
 export const joinMeetingRoom = (roomId)=>{
-    meetingRoomId = roomId;
     sendMeetingRoomJoinRequest({
         roomId,
-        // localStreamId: store.getState().stream.localStream.id,
         peerId: myPeerId,
         username: store.getState().user.userName,
     });
@@ -97,7 +93,7 @@ export const handleAdmitRequest = (data)=>{
     connectedUser = {
         socketId: data.attendeeSocketId,
         username: data.attendeeUsername,
-        peerId: data.attendeePeerId
+        peerId: data.attendeePeerId,
     };
     if(store.getState().user.meetingCode.length >0 && store.getState().stream.meetingRole === meetingRoles.HOST){
         store.dispatch(setCallerUsername(data.attendeeUsername));
@@ -111,7 +107,6 @@ export const handleRoomCheck = (data)=>{
         username: data.room.hostUsername,
         peerId: data.room.hostPeerId,
     };
-    console.log(room);
     store.dispatch(setMeetingMessage(data.message));
 };
 
@@ -141,7 +136,6 @@ export const entryAccepted = ()=>{
 export const makePeerCall = ()=>{
     const localStream = store.getState().stream.localStream;
     const call = myPeer.call(connectedUser.peerId, localStream);
-
     call.on('stream', (incomingStream) => {
         store.dispatch(setRemoteStream(incomingStream));
     });
@@ -153,6 +147,8 @@ export const handleRequestResponse = (data)=>{
         store.dispatch(setCallStatus(call_Statuses.ACTIVE));
         store.dispatch(setMeetingActive(data.roomId));
         makePeerCall();
+    } else if( data.message === 'ENTRY_DENIED'){
+        sendLeaveRoom({roomId: room.roomId});
     }
 };
 
@@ -168,7 +164,6 @@ export const handleDisconnectedUser = (data)=>{
 export const endMeeting = ()=> {
     if(store.getState().stream.meetingRole === meetingRoles.HOST){
         // the meeting should end for all the users.
-        console.log('inside endMeeting by Host.');
         sendEndMeetingForAll({
             attendeeSocketId: connectedUser.socketId,
             roomId: room.roomId,
@@ -186,7 +181,6 @@ export const endMeeting = ()=> {
     store.dispatch(resetStream());
     room = null;
     myPeerId = null;
-    msgConn = null;
     myPeer.destroy();
     connectWithMyPeer();
 };
@@ -196,7 +190,6 @@ export const resetStateAfterCallEnd = ()=>{
     store.dispatch(resetStream());
     room = null;
     myPeerId = null;
-    msgConn = null;
     myPeer.destroy();
     connectWithMyPeer();
     store.dispatch(setMeetingActive(''));
@@ -207,10 +200,6 @@ export const handleAttendeeLeft = ()=>{
     store.dispatch(setCallStatus(call_Statuses.IN_PROGRESS));
     store.dispatch(setCallerUsername(''));
     connectedUser = {};
-    myPeerId = null;
-    msgConn = null;
-    myPeer.destroy();
-    connectWithMyPeer();
 };
 
 export const messageToPeer = (message) => {
@@ -228,5 +217,4 @@ export const handleNewMessage = (data)=>{
     });
 
     store.dispatch(setChatHistory(chatHistory));
-    console.log('New message recieved: ', data.message );
 };

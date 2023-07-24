@@ -1,16 +1,15 @@
 import socketClient from 'socket.io-client';
 import { handleAdmitRequest, handleAttendeeLeft, handleDisconnectedUser, handleNewMeetingRoom, handleNewMessage, handleRequestResponse, handleRoomCheck, resetStateAfterCallEnd } from './webRTCHandler';
-
-const URL = 'http://localhost:8080';
 let socket = null;
 
 export const connectWithWebSocketServer = ()=>{
+    const BACKEND_PORT = process.env.BACK_PORT || 5000;
+    const SERVER_URL = process.env.SERVER_URL || 'http://localhost';
+    const URL = `${SERVER_URL}:${BACKEND_PORT}`;
+
     socket = socketClient(URL);
 
-    socket.on('connection', (data)=>{
-        console.log('Connected with server. ', socket.id);
-        console.log(data);
-    });
+    socket.on('connection', (data)=>{ });
 
     socket.on('disconnected-user', (data)=>{
         handleDisconnectedUser(data);
@@ -60,6 +59,10 @@ export const sendMeetingRoomJoinRequest = (data)=>{
 
 export const sendEntryRequestResponse = (data)=>{
     socket.emit('join-request-response', data);
+};
+
+export const sendLeaveRoom = (data) => {
+    socket.emit('leave-room', data);
 };
 
 export const sendEndMeetingForAll = (data)=>{

@@ -71,7 +71,6 @@ const Forms = () => {
     const onSubmitFn = async (event)=>{
         try{
             event.preventDefault();
-            console.log(formData);
             const formSubmitCall = await fetch(
                 'http://localhost:5000/api/candidateform/submit',
                 {

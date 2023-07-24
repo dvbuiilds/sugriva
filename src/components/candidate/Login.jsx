@@ -43,18 +43,13 @@ const Login = () => {
             setUser(userPayload);
 
             // store dispatch methods.
-            console.log('pass1');
             dispatch(setUserLoggedIn(true));
             dispatch(setUserRole('candidate'));
-            console.log('pass1');
             dispatch(setFirstName(candidate.firstName));
             dispatch(setLastName(candidate.lastName));
-            console.log('pass1');
             dispatch(setUserName(candidate.userName));
-            console.log('pass1');
             dispatch(setUserId(candidate._id));
             dispatch(setAuthToken(candidate.authToken));
-            console.log('pass1');
             dispatch(setProfileSubmitted(candidate.profile?true: false));
             dispatch(setUserEmail(candidate.email));
 
