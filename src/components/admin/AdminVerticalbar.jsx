@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import {FiLogOut } from 'react-icons/fi';
 import {MdMeetingRoom} from 'react-icons/md';
 import {AiOutlineFile} from 'react-icons/ai';
-import { useUser } from '../../hooks/useUser';
+import { useSelector } from 'react-redux';
 
 const AdminVerticalbar = () => {
-    const {user} = useUser();
+    const { userName } = useSelector( state => state.user );
 
     const logoutFn = ()=>{
         localStorage.clear();
@@ -19,7 +19,7 @@ const AdminVerticalbar = () => {
             className="d-flex flex-column flex-shrink-0 bg-transparent" 
             style={{width: "100%"}}>
                 <div className='mx-auto text-center'><Img src={'dp-placeholder.png'}/></div>
-                <p className='fs-5 text-center'>Hi <strong>{user.userName}</strong>!</p>
+                <p className='fs-5 text-center'>Hi <strong>{userName}</strong>!</p>
                 <div style={{height: "15px"}}></div>
 
                 <ul className="nav nav-pills flex-column ">

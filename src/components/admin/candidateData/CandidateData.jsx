@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useUser } from '../../../hooks/useUser';
 import Table from './Table';
+import { useSelector } from 'react-redux';
 
 
 const CandidateData = (props) => {
-    const { user } = useUser();
+    const { authToken } = useSelector( state=>state.user );
     let columns = [
         'Name',
         'Email',
@@ -49,7 +49,7 @@ const CandidateData = (props) => {
                 mode: "cors",
                 headers: { 
                     'Content-Type': 'application/json',
-                    'authToken': user.authToken,
+                    'authToken': authToken,
                     'Accept': 'application/json'
                 }
             }

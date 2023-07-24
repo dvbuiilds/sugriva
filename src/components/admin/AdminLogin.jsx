@@ -1,15 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { UserAuthContext } from '../context/UserAuthContext';
 import asyncLocalStorage from '../../customObjects/asyncLocalStorage';
 import { useDispatch } from 'react-redux';
-import { setAuthToken, setFirstName, setLastName, setProfileSubmitted, setUserEmail, setUserId, setUserLoggedIn, setUserName, setUserRole } from '../../redux/user/actions';
+import { setCompleteUser } from '../../redux/user/actions';
 
 const AdminLogin = () => {
     // states   
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {setUser} = useContext(UserAuthContext);
     // hooks
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -41,17 +39,8 @@ const AdminLogin = () => {
                     authToken: admin.authToken,
                     profile: admin.profile?true: null
                 };
-                setUser(userPayload);
-                // store dispatch methods.
-                dispatch(setUserLoggedIn(true));
-                dispatch(setUserRole('admin'));
-                dispatch(setFirstName(admin.firstName));
-                dispatch(setLastName(admin.lastName));
-                dispatch(setUserName(admin.userName));
-                dispatch(setUserId(admin._id));
-                dispatch(setAuthToken(admin.authToken));
-                dispatch(setProfileSubmitted(admin.profile?true: false));
-                dispatch(setUserEmail(admin.email));
+
+                dispatch(setCompleteUser(userPayload));
                 await asyncLocalStorage.setItem('userPayload', JSON.stringify(userPayload));
                 navigate('/admin-dashboard');
             } else{
@@ -84,7 +73,6 @@ const AdminLogin = () => {
             <input type="password" name="password" value={password} onChange={event => setPassword(event.target.value)} className="form-control" id="exampleInputPassword1"/>
             </div>
             <button type="submit" value="Submit" className="btn btn-primary">Login</button>
-            {/* <Link className="px-5 " to="/signup">New user? Sign Up</Link> */}
         </form>
         </div>
         <div className="col-lg-4"></div>

@@ -10,10 +10,12 @@ import {AiOutlineFile,
     // AiOutlineProfile, 
     // AiOutlineSetting
 } from 'react-icons/ai';
-import { useUser } from '../../hooks/useUser';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCompleteUser } from '../../redux/user/actions';
 
 const CandidateVerticalbar = () => {
-    const {user, setUser} = useUser();
+    const { userName, authToken  } = useSelector( state=> state.user );
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const logoutFn = async ()=>{
@@ -25,13 +27,13 @@ const CandidateVerticalbar = () => {
                 mode: "cors",
                 headers: { 
                     'Content-Type': 'application/json',
-                    'authToken': user.authToken
+                    'authToken': authToken
                 }
             }
         );
 
         const logoutRes = await logoutCall.json();
-        setUser({});
+        dispatch(setCompleteUser({}));
         if(!logoutRes.success){
             alert('Some internal error occured. Try clearing the site data.');
         }
@@ -45,7 +47,7 @@ const CandidateVerticalbar = () => {
         style={{width: "100%"}}>
             <Link className="mb-4 h2 text-center link-dark text-decoration-none" to='/candidate-dashboard'>Sgv Dashboard</Link>
             <div className='mx-auto text-center'><Img src={'dp-placeholder.png'}/></div>
-            <p className='fs-5 text-center'>Hi <strong>{user.userName}</strong>!</p>
+            <p className='fs-5 text-center'>Hi <strong>{userName}</strong>!</p>
             <div style={{height: "15px"}}></div>
 
             <ul className="nav nav-pills flex-column ">

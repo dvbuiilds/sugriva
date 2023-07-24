@@ -8,6 +8,7 @@ export const USER_SET_ID = 'USER_SET_ID';
 export const USER_SET_AUTHTOKEN = 'USER_SET_AUTHTOKEN';
 export const USER_SET_MEETING_CODE = 'USER_SET_MEETING_CODE';
 export const USER_SET_PROFILE_SUBMITTED = 'USER_SET_PROFILE_SUBMITTED';
+export const USER_SET_COMPLETE_USER = 'USER_SET_COMPLETE_USER';
 
 export const setUserLoggedIn = (status) => {
     return{
@@ -76,5 +77,12 @@ export const setProfileSubmitted = (status) => {
     return {
         type: USER_SET_PROFILE_SUBMITTED,
         status
+    };
+};
+
+export const setCompleteUser = (data) => {
+    return {
+        type: USER_SET_COMPLETE_USER,
+        data
     };
 };

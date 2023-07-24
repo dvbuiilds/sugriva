@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import CandidateVerticalbar from './CandidateVerticalbar';
-import { useUser } from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
-    const {user} = useUser();
+    const { profile } = useSelector( state => state.user );
     const navigate = useNavigate();
     const onClickFn = ()=>{
         navigate('/candidate-form');
@@ -17,7 +17,7 @@ const Dashboard = () => {
                         <CandidateVerticalbar/>
                     </div>
                     <div className='col-lg-10' style={{paddingTop: '100px', paddingLeft: '20px'}}>
-                        {!user.profile ?(
+                        {!profile ?(
                                 <div className='row'>
                                     <div className='container-fluid rounded bg-light p-3'>
                                         <p>Get ready for more opportunities!</p>

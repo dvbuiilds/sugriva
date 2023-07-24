@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import PersonalForm from './PersonalForm';
 import EducationForm from './EducationForm';
 import EmploymentForm from './EmploymentForm';
-import { UserAuthContext } from '../../context/UserAuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setProfileSubmitted } from '../../../redux/user/actions';
 
 const Forms = () => {
@@ -12,7 +11,7 @@ const Forms = () => {
     const lastName = JSON.parse(localStorage.getItem('userPayload')).lastName;
     const email = JSON.parse(localStorage.getItem('userPayload')).email;
     const navigate = useNavigate();
-    const {user, setUser} = useContext(UserAuthContext);
+    const { authToken, id } = useSelector( state=> state.user ); 
     const dispatch = useDispatch();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
@@ -87,8 +86,8 @@ const Forms = () => {
                     mode: "cors",
                     headers: { 
                         'Content-Type': 'application/json',
-                        'authToken': user.authToken,
-                        'candidateId': user.id
+                        'authToken': authToken,
+                        'candidateId': id
                     },
                     body: JSON.stringify(formData)
                 }
@@ -96,13 +95,14 @@ const Forms = () => {
 
             const formSubmitResponse = await formSubmitCall.json();
             if(formSubmitResponse.success){
+                const user = JSON.parse(localStorage.getItem('userPayload'));
                 const newUser = {
                     ...user,
                     profile: true
                 };
-                setUser(newUser);
+                // setUser(newUser);
                 dispatch(setProfileSubmitted(true));
-                localStorage.setItem('userPayload', JSON.stringify(user));
+                localStorage.setItem('userPayload', JSON.stringify(newUser));
                 alert('Form submitted successfully!');
             } else{
                 alert('Some error occured while submitting the form. Please try again after some time.');
