@@ -3,6 +3,8 @@ import CandidateVerticalbar from './CandidateVerticalbar';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useUser } from '../../hooks/useUser';
+import ResumeView from './Resume/ResumeView';
+// import resume from '../../assets/pdfs/resume.pdf'
 
 const Dashboard = () => {
     useUser();
@@ -11,6 +13,8 @@ const Dashboard = () => {
     const onClickFn = ()=>{
         navigate('/candidate-form');
     }
+
+    // const resume = require('../../assets/pdfs/resume.pdf');
     return (
         <>
             <div className='container-fluid'>
@@ -28,6 +32,7 @@ const Dashboard = () => {
                                 </div>
                             ):(<></>
                         )}
+                        {/* <ResumeView pdf={resume} /> */}
                     </div>
                 </div>
             </div>
