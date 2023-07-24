@@ -42,7 +42,6 @@ io.on('connection', (socket) => {
             hostUsername: data.hostUsername,
             hostSocketId: socket.id,
             roomId: roomId,
-            numOfParticipants: 1,
         };
 
         meetingRooms.push(newMeetingRoom);
@@ -68,6 +67,8 @@ io.on('connection', (socket) => {
                 message: 'SUCCESS',
                 room
             });
+
+            socket.join(room.roomId);
         } else{
             // it should return a response that call is not found.
             socket.emit('room-check', {message: 'FAILURE'});
@@ -75,14 +76,18 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join-request-response', (data)=>{
-        io.sockets.sockets.get(data.socketId).join(data.roomId);
         io.to(data.socketId).emit('request-response', data);
+    });
+
+    socket.on('leave-room', (data)=>{
+        socket.leave(data.roomId);
     });
 
     socket.on('end-meet-for-all', (data)=>{
         const room = meetingRooms.find( room => room.roomId === data.roomId );
         if(room){
             io.to(data.attendeeSocketId).emit('meeting-ended-by-host');
+            socket.leave(room.roomId);
         }
         meetingRooms = meetingRooms.filter( room => room.roomId !== data.roomId );
     });

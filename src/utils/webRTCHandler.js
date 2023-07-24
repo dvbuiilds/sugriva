@@ -3,7 +3,7 @@ import { setChatHistory } from "../redux/chat/actions";
 import { call_Statuses, resetStream, setCallStatus, setCallerUsername, setLocalStream, setMeetingHostUsername, setMeetingMessage, setMeetingRole, setRemoteStream, setRoomStreams } from "../redux/stream/actions";
 import { setMeetingActive } from "../redux/user/actions";
 import store from "../redux/store";
-import { sendMeetingRoomJoinRequest, registerNewMeeting, sendEntryRequestResponse, sendEndMeeting, sendEndMeetingForAll, sendEndMeetingForAttendee, sendMessage } from "./wssConnection";
+import { sendMeetingRoomJoinRequest, registerNewMeeting, sendEntryRequestResponse, sendEndMeeting, sendEndMeetingForAll, sendEndMeetingForAttendee, sendMessage, sendLeaveRoom } from "./wssConnection";
 
 const defaultConstraints = {
     video: {
@@ -25,7 +25,6 @@ export const getLocalStream = ()=>{
 
 let myPeer = null;
 let myPeerId = null;
-let meetingRoomId = null;
 let room = null;
 let connectedUser = {};
 
@@ -82,7 +81,6 @@ export const handleNewMeetingRoom = (data)=>{
 };
 
 export const joinMeetingRoom = (roomId)=>{
-    meetingRoomId = roomId;
     sendMeetingRoomJoinRequest({
         roomId,
         peerId: myPeerId,
@@ -149,6 +147,8 @@ export const handleRequestResponse = (data)=>{
         store.dispatch(setCallStatus(call_Statuses.ACTIVE));
         store.dispatch(setMeetingActive(data.roomId));
         makePeerCall();
+    } else if( data.message === 'ENTRY_DENIED'){
+        sendLeaveRoom({roomId: room.roomId});
     }
 };
 

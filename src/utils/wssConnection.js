@@ -61,6 +61,10 @@ export const sendEntryRequestResponse = (data)=>{
     socket.emit('join-request-response', data);
 };
 
+export const sendLeaveRoom = (data) => {
+    socket.emit('leave-room', data);
+};
+
 export const sendEndMeetingForAll = (data)=>{
     socket.emit('end-meet-for-all', data);
 };
