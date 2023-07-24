@@ -8,11 +8,17 @@ import { useDispatch } from 'react-redux';
 import { setProfileSubmitted } from '../../../redux/user/actions';
 
 const Forms = () => {
+    const firstName = JSON.parse(localStorage.getItem('userPayload')).firstName;
+    const lastName = JSON.parse(localStorage.getItem('userPayload')).lastName;
+    const email = JSON.parse(localStorage.getItem('userPayload')).email;
     const navigate = useNavigate();
     const {user, setUser} = useContext(UserAuthContext);
     const dispatch = useDispatch();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
         waNumber: '',
         gender: '',
         highestQualification: '',

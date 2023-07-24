@@ -88,7 +88,7 @@ router.get(
     async (req, res)=>{
         try {
             const allProfiles = await ProfileOne.find({});
-            console.log({allProfiles});
+            console.log(allProfiles.length);
             return res.status(200).json({
                 'message': 'succuess',
                 allProfiles

@@ -1,23 +1,21 @@
 import React from 'react'
 
 const PersonalForm = ({formData, onChangeFn}) => {
-  const firstName = JSON.parse(localStorage.getItem('userPayload')).firstName;
-  const lastName = JSON.parse(localStorage.getItem('userPayload')).lastName;
-  const email = JSON.parse(localStorage.getItem('userPayload')).email;
+
   return (
     <div>
       <h6 className='mt-4'>Personal Information</h6>
       <div className="form-group my-2">
         <label>First Name</label>
-        <input required type="text" name="firstName" onChange={onChangeFn} value={firstName} className="form-control"/>
+        <input required type="text" name="firstName" onChange={onChangeFn} value={formData.firstName} className="form-control"/>
       </div>
       <div className="form-group my-2">
         <label>Last Name</label>
-        <input required type="text" name="lastName" onChange={onChangeFn} value={lastName} className="form-control"/>
+        <input required type="text" name="lastName" onChange={onChangeFn} value={formData.lastName} className="form-control"/>
       </div>
       <div className="form-group my-2">
         <label>Email</label>
-        <input  type="email" name="email" onChange={onChangeFn} value={email} className="form-control"/>
+        <input  type="email" name="email" onChange={onChangeFn} value={formData.email} className="form-control"/>
       </div>
       <div className="form-group my-2">
         <label>WhatsApp Number</label>
@@ -26,7 +24,7 @@ const PersonalForm = ({formData, onChangeFn}) => {
       <div className="form-group my-2">
         <label >Gender</label>
         <select required name="gender" value={formData.gender} onChange={onChangeFn} className="form-control" >
-            <option className='text-muted' selected >Select Options</option>
+            <option className='text-muted'>Select Options</option>
             <option>Male</option>
             <option>Female</option>
             <option>Others</option>

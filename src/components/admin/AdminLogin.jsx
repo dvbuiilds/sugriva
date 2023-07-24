@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { UserAuthContext } from '../context/UserAuthContext';
 import asyncLocalStorage from '../../customObjects/asyncLocalStorage';
+import { useDispatch } from 'react-redux';
+import { setAuthToken, setFirstName, setLastName, setProfileSubmitted, setUserEmail, setUserId, setUserLoggedIn, setUserName, setUserRole } from '../../redux/user/actions';
 
 const AdminLogin = () => {
     // states   
@@ -10,6 +12,7 @@ const AdminLogin = () => {
     const {setUser} = useContext(UserAuthContext);
     // hooks
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onSubmitFn = async (event) => {
         event.preventDefault();
@@ -19,7 +22,7 @@ const AdminLogin = () => {
                 {
                     method: "POST",
                     mode: "cors",
-                    headers: { 'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json'},
                     body: JSON.stringify({email, password})
                 }
             );
@@ -39,6 +42,16 @@ const AdminLogin = () => {
                     profile: admin.profile?true: null
                 };
                 setUser(userPayload);
+                // store dispatch methods.
+                dispatch(setUserLoggedIn(true));
+                dispatch(setUserRole('admin'));
+                dispatch(setFirstName(admin.firstName));
+                dispatch(setLastName(admin.lastName));
+                dispatch(setUserName(admin.userName));
+                dispatch(setUserId(admin._id));
+                dispatch(setAuthToken(admin.authToken));
+                dispatch(setProfileSubmitted(admin.profile?true: false));
+                dispatch(setUserEmail(admin.email));
                 await asyncLocalStorage.setItem('userPayload', JSON.stringify(userPayload));
                 navigate('/admin-dashboard');
             } else{
