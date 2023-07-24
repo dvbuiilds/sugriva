@@ -10,12 +10,17 @@ router.post(
     verifyCandidateToken,
     async (req, res)=> {
         const form = req.body;
+        console.log('form', form);
         const candidate = req.header('candidateId');
         form.candidate = candidate;
+        console.log('form.candidate before try catch', form.candidate);
         try{
             const formExists = await ProfileOne.findOne({candidate});
             if(!formExists){
                 const formRes = await ProfileOne.create({
+                    firstName: form.firstName,
+                    lastName: form.lastName,
+                    email: form.email,
                     candidate: form.candidate,
                     waNumber: form.waNumber,
                     gender: form.gender,
@@ -49,6 +54,7 @@ router.post(
                     preferredDepartment: form.preferredDepartment,
                     preferredCTC: form.preferredCTC
                 });
+
                 await Candidate.updateOne(
                     {_id: candidate},
                     {$set: {profile: formRes._id}}
@@ -64,6 +70,7 @@ router.post(
                     {_id: candidate},
                     {$set: {profile: formUpdate._id}}
                 );
+                console.log(formUpdate._id);
             }
         } catch(error){
             return res.status(400).json({error: error.message});

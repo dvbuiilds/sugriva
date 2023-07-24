@@ -36,8 +36,9 @@ const Login = () => {
                 email: candidate.email,
                 id: candidate._id,
                 authToken: candidate.authToken,
-                profile: candidate.profile?true: null
+                profile: candidate.profile? candidate.profile: false
             };
+            console.log({candidate});
 
             // store dispatch methods.
             dispatch(setCompleteUser(userPayload));

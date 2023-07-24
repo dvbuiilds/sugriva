@@ -50,8 +50,10 @@ const Forms = () => {
         preferredWorkLocations: '',
         preferredIndustry: '',
         preferredDepartment: '',
-        preferredCTC: ''
+        preferredCTC: '',
+        candidate: id
     });
+    
     const checkEmptyFields = ()=> {
         const form = document.form;
         for(let i = 0; i<form.length-1; ++i){
