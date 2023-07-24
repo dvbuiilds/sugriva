@@ -7,13 +7,9 @@ export const connectWithWebSocketServer = ()=>{
     const SERVER_URL = process.env.SERVER_URL || 'http://localhost';
     const URL = `${SERVER_URL}:${BACKEND_PORT}`;
 
-    console.log('socket io url is: ', URL);
     socket = socketClient(URL);
 
-    socket.on('connection', (data)=>{
-        console.log('Connected with server. ', socket.id);
-        console.log(data);
-    });
+    socket.on('connection', (data)=>{ });
 
     socket.on('disconnected-user', (data)=>{
         handleDisconnectedUser(data);

@@ -17,7 +17,6 @@ const ButtonChat = () => {
         },
     };
     const handleChatBtnClick = ()=>{
-        console.log('Handle chat btn click');
         const chatStatus = !chatActive;
         dispatch(setChatActive(chatStatus));
     };

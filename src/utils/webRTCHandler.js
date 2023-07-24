@@ -92,7 +92,6 @@ export const joinMeetingRoom = (roomId)=>{
 };
 
 export const handleAdmitRequest = (data)=>{
-    console.log('Inside handleAdmitRequest. ', {data});
     connectedUser = {
         socketId: data.attendeeSocketId,
         username: data.attendeeUsername,
@@ -110,7 +109,6 @@ export const handleRoomCheck = (data)=>{
         username: data.room.hostUsername,
         peerId: data.room.hostPeerId,
     };
-    console.log(room);
     store.dispatch(setMeetingMessage(data.message));
 };
 
@@ -140,7 +138,6 @@ export const entryAccepted = ()=>{
 export const makePeerCall = ()=>{
     const localStream = store.getState().stream.localStream;
     const call = myPeer.call(connectedUser.peerId, localStream);
-    console.log({myPeer}, {connectedUser}, {call});
     call.on('stream', (incomingStream) => {
         store.dispatch(setRemoteStream(incomingStream));
     });
@@ -167,7 +164,6 @@ export const handleDisconnectedUser = (data)=>{
 export const endMeeting = ()=> {
     if(store.getState().stream.meetingRole === meetingRoles.HOST){
         // the meeting should end for all the users.
-        console.log('inside endMeeting by Host.');
         sendEndMeetingForAll({
             attendeeSocketId: connectedUser.socketId,
             roomId: room.roomId,
@@ -221,5 +217,4 @@ export const handleNewMessage = (data)=>{
     });
 
     store.dispatch(setChatHistory(chatHistory));
-    console.log('New message recieved: ', data.message );
 };

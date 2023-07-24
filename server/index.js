@@ -47,7 +47,6 @@ io.on('connection', (socket) => {
 
         meetingRooms.push(newMeetingRoom);
         mapSocketIdToRoomId[socket.id] = roomId;
-        console.log(meetingRooms);
 
         socket.emit('new-room-created', {
             room: newMeetingRoom,
@@ -76,7 +75,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join-request-response', (data)=>{
-        console.log('Inside Join Request Response call back.');
         io.sockets.sockets.get(data.socketId).join(data.roomId);
         io.to(data.socketId).emit('request-response', data);
     });

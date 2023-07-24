@@ -31,7 +31,6 @@ const CandidateVerticalbar = () => {
         );
 
         const logoutRes = await logoutCall.json();
-        console.log('Res received', logoutRes);
         setUser({});
         if(!logoutRes.success){
             alert('Some internal error occured. Try clearing the site data.');

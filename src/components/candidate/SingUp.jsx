@@ -38,9 +38,7 @@ const SingUp = () => {
         );
 
         const candidateResponse = await responseCall.json();
-        // console.log(candidateResponse);
         if(candidateResponse.success){
-            console.log(candidateResponse);
             navigate('/login');
         } else{
             alert("Invalid Credentials.");
