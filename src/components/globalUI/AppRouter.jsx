@@ -21,18 +21,21 @@ const AppRouter = () => {
     <>
       <BrowserRouter>
         <Routes>
+          {/** For candidate role */}
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<RegisterProtected><SingUp/></RegisterProtected>} />
           <Route path="/login" element={<RegisterProtected><Login/></RegisterProtected>} />
           <Route path="/candidate-dashboard" element={<CandidateProtected ><Dashboard /></CandidateProtected>} />
           <Route path="/candidate-form" element={<CandidateProtected ><Forms /></CandidateProtected>} />
+          
+          {/** For both roles */}
           <Route path='/meeting' element={<RoleProtected><Meeting /> </RoleProtected> } />
           <Route path='/wtgri-AXUHSD' element={<RoleProtected><WaitingRoom /> </RoleProtected>} />
           <Route path='/meeting/:id' element={<RoleProtected><MeetingRoom /> </RoleProtected>} />
           <Route path='/join/:id' element={<RoleProtected><JoinMeeting /> </RoleProtected>} />
 
-
+          {/** For admin role */}
           <Route path="/admin" element={<RegisterProtected><AdminLogin/></RegisterProtected>} />
           <Route path="/admin-dashboard" element={<AdminProtected><AdminDashboard /></AdminProtected>} /></Routes>
       </BrowserRouter>
