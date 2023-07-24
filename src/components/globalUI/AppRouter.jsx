@@ -14,6 +14,7 @@ import Meeting from "../interview/Meeting";
 import WaitingRoom from "../interview/WaitingRoom";
 import MeetingRoom from "../interview/meetingRoom/MeetingRoom";
 import JoinMeeting from "../interview/meetingRoom/JoinMeeting";
+import RoleProtected from "../protectedRoutes/RoleProtected";
 
 const AppRouter = () => {
   return (
@@ -26,10 +27,10 @@ const AppRouter = () => {
           <Route path="/login" element={<RegisterProtected><Login/></RegisterProtected>} />
           <Route path="/candidate-dashboard" element={<CandidateProtected ><Dashboard /></CandidateProtected>} />
           <Route path="/candidate-form" element={<CandidateProtected ><Forms /></CandidateProtected>} />
-          <Route path='/meeting' element={<Meeting />} />
-          <Route path='/wtgri-AXUHSD' element={<WaitingRoom />} />
-          <Route path='/meeting/:id' element={<MeetingRoom />} />
-          <Route path='/join/:id' element={<JoinMeeting />} />
+          <Route path='/meeting' element={<RoleProtected><Meeting /> </RoleProtected> } />
+          <Route path='/wtgri-AXUHSD' element={<RoleProtected><WaitingRoom /> </RoleProtected>} />
+          <Route path='/meeting/:id' element={<RoleProtected><MeetingRoom /> </RoleProtected>} />
+          <Route path='/join/:id' element={<RoleProtected><JoinMeeting /> </RoleProtected>} />
 
 
           <Route path="/admin" element={<RegisterProtected><AdminLogin/></RegisterProtected>} />
