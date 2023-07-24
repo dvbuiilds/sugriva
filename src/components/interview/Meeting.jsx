@@ -48,11 +48,6 @@ const Meeting = () => {
                             >Create Meeting Room</button>
                             : <></>
                             }
-                            <button 
-                            onClick={ handleCreateMeetingBtn } 
-                            className="btn btn-md btn-primary"
-                            style={{width: '100%'}}
-                            >Create Meeting Room</button>
                             <input
                             required
                             className="card border my-3" 

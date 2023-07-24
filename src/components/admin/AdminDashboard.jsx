@@ -1,39 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import AdminVerticalbar from './AdminVerticalbar';
+import CandidateData from './candidateData/CandidateData';
+import { useUser } from '../../hooks/useUser';
 
 const AdminDashboard = () => {
-    const logoutFn = ()=>{
-        localStorage.clear();
-    };
+    useUser();
     return (
         <>
             <div className='container-fluid'>
-                <div className='row'>
-                    <div className='col-md-2'><Link className='text-decoration-none nav-link' to='/'><p>Notes</p></Link></div>
-                    <div className='col-md-8'><Link className='text-decoration-none nav-link' to='/admin-dashboard'><p className='h4' style={{textAlign: 'center'}}>Sugriva's Admin</p></Link></div>
-                    <div className='col-md-2'><Link className='text-decoration-none nav-link' to='/admin'><p style={{textAlign: "right"}} onClick={ logoutFn }>Logout</p></Link></div>
-                </div>
-                <div className='row'>
-                    <p className='h2' style={{textAlign: 'center'}}>Admin Dashboard</p>
+                <div className='row my-4'>
+                    <div className='col-md-2'>
+                    </div>
+                    <div className='col-md-8'><Link className='text-decoration-none nav-link' to='/admin-dashboard'><p className='h3' style={{textAlign: 'center'}}>Sugriva's Admin Dashboard</p></Link></div>
+                    <div className='col-md-2'></div>
                 </div>
             </div>
-            <div className='container-fluid row'>
-                <div className='col-md-3 border border-primary'>
-                    <div className='bg-light' style={{height: "100vh"}}>
-                        <ul className="nav nav-pills flex-column ">
-                            <li>
-                                <Link to="/candidates" className="nav-link link-dark fs-5"> &nbsp;Candidates</Link>
-                            </li>
-                            <li>
-                                <Link to="/take-interview" className="nav-link link-dark fs-5"> &nbsp;Take Interview</Link>
-                            </li>
-                        </ul>
+            <div className='container-fluid' style={{height: '100vh'}}>
+                <div className="row" style={{ height: '100%'}}>
+                    <div className='col-md-2'>
+                        <AdminVerticalbar />
+                    </div>
+                    <div className='col-md-10 bg-light rounded px-3' style={{ height: '100%' }}>
+                        <CandidateData />
                     </div>
                 </div>
-                <div className='col-md-9 border border-primary' style={{textAlign: "center"}}>Data</div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default AdminDashboard
+export default AdminDashboard;

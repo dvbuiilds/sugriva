@@ -28,6 +28,9 @@ let myPeerId = null;
 let room = null;
 let connectedUser = {};
 
+export const storePeerLocally = (myPeer)=>{
+    localStorage.setItem('myPeer', JSON.stringify(myPeer));
+};
 export const connectWithMyPeer = ()=>{
     myPeer = new window.Peer(undefined, {
         path: '/peerjs',
@@ -47,6 +50,7 @@ export const connectWithMyPeer = ()=>{
     });
 
     getLocalStream();
+    // storePeerLocally(myPeer);
 };
 
 export const addVideoStream = (incomingStream)=>{

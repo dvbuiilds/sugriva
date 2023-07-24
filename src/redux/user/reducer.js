@@ -1,4 +1,4 @@
-const { USER_SET_LOGGED_IN, USER_SET_ROLE, USER_SET_FIRST_NAME, USER_SET_LAST_NAME, USER_SET_USER_NAME, USER_SET_EMAIL, USER_SET_ID, USER_SET_AUTHTOKEN, USER_SET_MEETING_CODE, USER_SET_PROFILE_SUBMITTED } = require("./actions");
+const { USER_SET_LOGGED_IN, USER_SET_ROLE, USER_SET_FIRST_NAME, USER_SET_LAST_NAME, USER_SET_USER_NAME, USER_SET_EMAIL, USER_SET_ID, USER_SET_AUTHTOKEN, USER_SET_MEETING_CODE, USER_SET_PROFILE_SUBMITTED, USER_SET_COMPLETE_USER } = require("./actions");
 
 const initialState = {
     loggedIn: false,
@@ -73,6 +73,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: action.status,
+            };
+
+        case USER_SET_COMPLETE_USER:
+            return {
+                ...state,
+                ...action.data,
             };
 
         default: 

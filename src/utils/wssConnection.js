@@ -2,12 +2,17 @@ import socketClient from 'socket.io-client';
 import { handleAdmitRequest, handleAttendeeLeft, handleDisconnectedUser, handleNewMeetingRoom, handleNewMessage, handleRequestResponse, handleRoomCheck, resetStateAfterCallEnd } from './webRTCHandler';
 let socket = null;
 
+export const storeSocketLocally = (socket)=>{
+    localStorage.setItem('socket', JSON.stringify(socket));
+};
+
 export const connectWithWebSocketServer = ()=>{
     const BACKEND_PORT = process.env.BACK_PORT || 5000;
     const SERVER_URL = process.env.SERVER_URL || 'http://localhost';
     const URL = `${SERVER_URL}:${BACKEND_PORT}`;
 
     socket = socketClient(URL);
+    // storeSocketLocally(socket);
 
     socket.on('connection', (data)=>{ });
 

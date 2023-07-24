@@ -6,7 +6,7 @@ const candidateSchema = new mongoose.Schema({
   userName: { type: String, unique: true },
   email: { type: String, unique: true },
   password: { type: String },
-  profile: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'}
+  profile: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile', default: null}
 });
 
 const Candidate = mongoose.model('candiate', candidateSchema);

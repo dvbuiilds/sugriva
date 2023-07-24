@@ -4,6 +4,8 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Admin = require('../model/Admin');
+const { verifyAdminToken } = require('../middleware/authorize');
+const ProfileOne = require('../model/ProfileOne');
 const JWT_SECRET = process.env.TOKEN_KEY;
 
 router.post(
@@ -23,7 +25,7 @@ router.post(
             }
 
             const maxAge = 24*60*60;
-            const payload = { user: { id: adminExists._id, candidate: false, recruiter: false, admin: true } };
+            const payload = { user: { id: adminExists._id, candidate: false, admin: true } };
             const authToken = jwt.sign(payload, JWT_SECRET, {expiresIn: maxAge});
 
             res.cookie("authToken", authToken, {
@@ -65,7 +67,7 @@ router.post(
 
             const salt = await bcrypt.genSalt(10);
             const securePassword = await bcrypt.hash(password, salt);
-            const admin = await Admin.create({
+            await Admin.create({
                 firstName,
                 lastName,
                 userName,
@@ -78,6 +80,25 @@ router.post(
             return res.status(500).json({error});
         }
     }
-)
+);
+
+router.get(
+    '/all-profiles',
+    verifyAdminToken,
+    async (req, res)=>{
+        try {
+            const allProfiles = await ProfileOne.find({});
+            console.log(allProfiles.length);
+            return res.status(200).json({
+                'message': 'succuess',
+                allProfiles
+            });
+        } catch (error) {
+            console.log('error.message', error.message);
+        }
+        return res.status(300).json({'message': 'failed'});
+
+    }
+);
 
 module.exports = router;

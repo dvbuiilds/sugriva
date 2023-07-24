@@ -1,15 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
-import { UserAuthContext } from '../context/UserAuthContext';
 import asyncLocalStorage from '../../customObjects/asyncLocalStorage';
 import { useDispatch } from 'react-redux';
-import { setAuthToken, setFirstName, setLastName, setProfileSubmitted, setUserId, setUserLoggedIn, setUserName, setUserRole, setUserEmail } from '../../redux/user/actions';
+import { setCompleteUser } from '../../redux/user/actions';
 
 const Login = () => {
     // states   
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {setUser} = useContext(UserAuthContext);
     // hooks
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -38,20 +36,12 @@ const Login = () => {
                 email: candidate.email,
                 id: candidate._id,
                 authToken: candidate.authToken,
-                profile: candidate.profile?true: null
+                profile: candidate.profile? candidate.profile: false
             };
-            setUser(userPayload);
+            console.log({candidate});
 
             // store dispatch methods.
-            dispatch(setUserLoggedIn(true));
-            dispatch(setUserRole('candidate'));
-            dispatch(setFirstName(candidate.firstName));
-            dispatch(setLastName(candidate.lastName));
-            dispatch(setUserName(candidate.userName));
-            dispatch(setUserId(candidate._id));
-            dispatch(setAuthToken(candidate.authToken));
-            dispatch(setProfileSubmitted(candidate.profile?true: false));
-            dispatch(setUserEmail(candidate.email));
+            dispatch(setCompleteUser(userPayload));
 
             await asyncLocalStorage.setItem('userPayload', JSON.stringify(userPayload));
             navigate('/candidate-dashboard');

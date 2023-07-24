@@ -1,7 +1,7 @@
 const ProfileOne = require("../model/ProfileOne");
 const express = require("express");
 const router = express.Router();
-const verifyCandidateToken = require("../middleware/authorize");
+const { verifyCandidateToken } = require("../middleware/authorize");
 const Candidate = require("../model/Candidate");
 
 // submit the candidate form
@@ -10,12 +10,17 @@ router.post(
     verifyCandidateToken,
     async (req, res)=> {
         const form = req.body;
+        console.log('form', form);
         const candidate = req.header('candidateId');
         form.candidate = candidate;
+        console.log('form.candidate before try catch', form.candidate);
         try{
             const formExists = await ProfileOne.findOne({candidate});
             if(!formExists){
                 const formRes = await ProfileOne.create({
+                    firstName: form.firstName,
+                    lastName: form.lastName,
+                    email: form.email,
                     candidate: form.candidate,
                     waNumber: form.waNumber,
                     gender: form.gender,
@@ -49,7 +54,8 @@ router.post(
                     preferredDepartment: form.preferredDepartment,
                     preferredCTC: form.preferredCTC
                 });
-                const candidateUpdate = await Candidate.updateOne(
+
+                await Candidate.updateOne(
                     {_id: candidate},
                     {$set: {profile: formRes._id}}
                 );
@@ -60,10 +66,11 @@ router.post(
                     {candidate: candidate},
                     { $set: form}
                 );
-                const candidateUpdate = await Candidate.updateOne(
+                await Candidate.updateOne(
                     {_id: candidate},
                     {$set: {profile: formUpdate._id}}
                 );
+                console.log(formUpdate._id);
             }
         } catch(error){
             return res.status(400).json({error: error.message});

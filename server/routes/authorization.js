@@ -4,7 +4,7 @@ const Candidate = require("../model/Candidate");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const verifyCandidateToken = require("../middleware/authorize");
+const { verifyCandidateToken } = require('../middleware/authorize');
 const JWT_SECRET = process.env.TOKEN_KEY;
 const localStorage = require("localStorage");
 
@@ -22,7 +22,7 @@ router.post(
 
             const salt = await bcrypt.genSalt(10);
             const securePassword = await bcrypt.hash(password, salt);
-            const candidate = await Candidate.create({
+            await Candidate.create({
                 firstName,
                 lastName,
                 userName,
@@ -55,7 +55,7 @@ router.post(
             }
 
             const maxAge = 24*60*60;
-            const payload = { user: { id: candidateExists._id, candidate: true, recruiter: false } };
+            const payload = { user: { id: candidateExists._id, candidate: true, admin: false } };
             const authToken = jwt.sign(payload, JWT_SECRET, {expiresIn: maxAge});
 
             res.cookie("authToken", authToken, {
@@ -69,6 +69,7 @@ router.post(
                 email: candidateExists.email,
                 _id: candidateExists._id,
                 authToken,
+                profile: candidateExists.profile
             };
             return res.status(200).json({candidateData});
             // res.writeHead(200, {
@@ -84,12 +85,30 @@ router.post(
     }
 );
 
+// // Update the profile field in candidate.
+// router.put(
+//     '/update-candidate',
+//     verifyCandidateToken,
+//     async ( req, res ) => {
+        
+//     }
+// );
+
 // Get information of a candidate using its id/username.
 router.get(
     '/getuser',
     async (req, res)=>{
-        const userId = localStorage.getItem('userId');
-        const candidateId = localStorage.getItem('candidateId');
+        const id = req.header('id');
+        // const userId = localStorage.getItem('userId');
+        // const candidateId = localStorage.getItem('candidateId');
+        try{
+            const candidate = await Candidate.findById(id);
+            console.log({candidate});
+        } catch(error) {
+            return res.status(500).json({'error': error.message});
+        }
+        
+        return res.status(200).json({success: true});
     }
 )
 
