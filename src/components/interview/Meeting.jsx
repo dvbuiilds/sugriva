@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { connectWithMyPeer, createNewMeeting, joinMeetingRoom } from '../../utils//webRTCHandler';
 import { useSelector } from 'react-redux';
 import { connectWithWebSocketServer } from '../../utils/wssConnection';
+import { useUser } from '../../hooks/useUser';
 
 const Meeting = () => {
+    useUser();
     const navigate = useNavigate();
     const [inputPlaceholder, setInputPlaceholder] = useState('or Join a meeting');
     const [meetingCode, setMeetingCode] = useState('');
@@ -33,6 +35,15 @@ const Meeting = () => {
         ( async()=> connectWithMyPeer() )();
     });
 
+    const handleDashboardBtn = ()=>{
+        if(role === 'admin'){
+            navigate('/admin-dashboard');
+        } else if(role === 'candidate') {
+            navigate('/candidate-dashboard');
+        }
+        window.location.reload(true);
+    };
+
     return (
         <>
             <div className="container mt-5">
@@ -58,8 +69,12 @@ const Meeting = () => {
                             onKeyDown={ handleMeetingCodeInput }
                             onClick={ handleInputClick }
                             />
+                            <button className='my-5 btn btn-lg btn-info text-center' style={{ width: "100%" }} onClick={ handleDashboardBtn }>Go to Dashboard</button>
+
                         </div>
                     </div>
+                </div>
+                <div className="row my-5 py-5 justify-content-center" style={{ width: '20vw'}}>
                 </div>
             </div>
         </>
