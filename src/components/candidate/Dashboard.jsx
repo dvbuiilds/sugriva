@@ -3,7 +3,7 @@ import CandidateVerticalbar from './CandidateVerticalbar';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useUser } from '../../hooks/useUser';
-import ResumeView from './Resume/ResumeView';
+// import ResumeView from './Resume/ResumeView';
 // import resume from '../../assets/pdfs/resume.pdf'
 
 const Dashboard = () => {

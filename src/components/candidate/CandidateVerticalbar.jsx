@@ -52,7 +52,7 @@ const CandidateVerticalbar = () => {
 
             <ul className="nav nav-pills flex-column ">
                 <li>
-                    <Link to="/resume" className="nav-link link-dark fs-5"><AiOutlineFile/> &nbsp;My Resume</Link>
+                    <Link to="/candidate-dashboard" className="nav-link link-dark fs-5"><AiOutlineFile/> &nbsp;My Resume</Link>
                 </li>
                 {/* <li>
                     <Link to="/module" className="nav-link link-dark fs-5"><BsBook/> &nbsp;Module</Link>
