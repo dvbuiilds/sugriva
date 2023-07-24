@@ -4,10 +4,13 @@ import EducationForm from './EducationForm';
 import EmploymentForm from './EmploymentForm';
 import { UserAuthContext } from '../../context/UserAuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setProfileSubmitted } from '../../../redux/user/actions';
 
 const Forms = () => {
     const navigate = useNavigate();
     const {user, setUser} = useContext(UserAuthContext);
+    const dispatch = useDispatch();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         waNumber: '',
@@ -92,6 +95,7 @@ const Forms = () => {
                     profile: true
                 };
                 setUser(newUser);
+                dispatch(setProfileSubmitted(true));
                 localStorage.setItem('userPayload', JSON.stringify(user));
                 alert('Form submitted successfully!');
             } else{

@@ -4,7 +4,7 @@ const Candidate = require("../model/Candidate");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const verifyCandidateToken = require("../middleware/authorize");
+const { verifyCandidateToken } = require('../middleware/authorize');
 const JWT_SECRET = process.env.TOKEN_KEY;
 const localStorage = require("localStorage");
 
@@ -55,7 +55,7 @@ router.post(
             }
 
             const maxAge = 24*60*60;
-            const payload = { user: { id: candidateExists._id, candidate: true, recruiter: false } };
+            const payload = { user: { id: candidateExists._id, candidate: true, admin: false } };
             const authToken = jwt.sign(payload, JWT_SECRET, {expiresIn: maxAge});
 
             res.cookie("authToken", authToken, {

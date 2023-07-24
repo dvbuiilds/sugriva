@@ -1,7 +1,7 @@
 const ProfileOne = require("../model/ProfileOne");
 const express = require("express");
 const router = express.Router();
-const verifyCandidateToken = require("../middleware/authorize");
+const { verifyCandidateToken } = require("../middleware/authorize");
 const Candidate = require("../model/Candidate");
 
 // submit the candidate form

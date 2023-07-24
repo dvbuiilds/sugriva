@@ -25,7 +25,7 @@ const AdminDashboard = () => {
                                 <Link to="/candidates" className="nav-link link-dark fs-5"> &nbsp;Candidates</Link>
                             </li>
                             <li>
-                                <Link to="/take-interview" className="nav-link link-dark fs-5"> &nbsp;Take Interview</Link>
+                                <Link to="/meeting" className="nav-link link-dark fs-5"> &nbsp;Take Interview</Link>
                             </li>
                         </ul>
                     </div>
