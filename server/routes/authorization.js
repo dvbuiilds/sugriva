@@ -22,7 +22,7 @@ router.post(
 
             const salt = await bcrypt.genSalt(10);
             const securePassword = await bcrypt.hash(password, salt);
-            const candidate = await Candidate.create({
+            await Candidate.create({
                 firstName,
                 lastName,
                 userName,
@@ -90,6 +90,7 @@ router.get(
     async (req, res)=>{
         const userId = localStorage.getItem('userId');
         const candidateId = localStorage.getItem('candidateId');
+        console.log({userId, candidateId});
     }
 )
 

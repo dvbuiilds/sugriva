@@ -49,7 +49,7 @@ router.post(
                     preferredDepartment: form.preferredDepartment,
                     preferredCTC: form.preferredCTC
                 });
-                const candidateUpdate = await Candidate.updateOne(
+                await Candidate.updateOne(
                     {_id: candidate},
                     {$set: {profile: formRes._id}}
                 );
@@ -60,7 +60,7 @@ router.post(
                     {candidate: candidate},
                     { $set: form}
                 );
-                const candidateUpdate = await Candidate.updateOne(
+                await Candidate.updateOne(
                     {_id: candidate},
                     {$set: {profile: formUpdate._id}}
                 );
