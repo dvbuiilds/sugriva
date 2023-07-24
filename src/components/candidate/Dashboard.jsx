@@ -2,8 +2,10 @@ import React from 'react';
 import CandidateVerticalbar from './CandidateVerticalbar';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useUser } from '../../hooks/useUser';
 
 const Dashboard = () => {
+    useUser();
     const { profile } = useSelector( state => state.user );
     const navigate = useNavigate();
     const onClickFn = ()=>{

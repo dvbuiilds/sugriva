@@ -2,9 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import AdminVerticalbar from './AdminVerticalbar';
 import CandidateData from './candidateData/CandidateData';
+import { useUser } from '../../hooks/useUser';
 
 const AdminDashboard = () => {
-
+    useUser();
     return (
         <>
             <div className='container-fluid'>

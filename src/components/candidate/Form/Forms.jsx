@@ -5,8 +5,10 @@ import EmploymentForm from './EmploymentForm';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfileSubmitted } from '../../../redux/user/actions';
+import { useUser } from '../../../hooks/useUser';
 
 const Forms = () => {
+    useUser();
     const firstName = JSON.parse(localStorage.getItem('userPayload')).firstName;
     const lastName = JSON.parse(localStorage.getItem('userPayload')).lastName;
     const email = JSON.parse(localStorage.getItem('userPayload')).email;
@@ -100,7 +102,7 @@ const Forms = () => {
                     ...user,
                     profile: true
                 };
-                // setUser(newUser);
+
                 dispatch(setProfileSubmitted(true));
                 localStorage.setItem('userPayload', JSON.stringify(newUser));
                 alert('Form submitted successfully!');
